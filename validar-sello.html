@@ -1,101 +1,281 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validación de Sello</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        html, body {
-            height: 100%;
-        }
-        
         body {
-            background-image: url('https://www.logotypes101.com/logos/559/77CDAA66561FC726ADC59A95A3C9BA67/la_comer.png');
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+            background-image: url('https://bioscents.com.mx/wp-content/uploads/2024/04/Sin-titulo-3.pnrtthtrhg.png');
             background-repeat: no-repeat;
             background-position: center center;
-            background-size: cover;
-            background-color: #ffffff;
-            position: relative;
+            background-size: 100%;
+            background-attachment: fixed;
+            background-blend-mode: lighten;
+            opacity: 0.9;
         }
-        
-        body::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(255, 255, 255, 0.7);
-            z-index: 0;
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
         }
-        
-        .main-container {
-            position: relative;
-            z-index: 1;
+
+        .form-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
-        
-        .check-icon {
+
+        .form-title {
+            color: #e91e63;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Estilos para el spinner */
+        .loader-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .error-icon {
             font-size: 3rem;
-            color: #198754;
+            color: #dc3545;
         }
         
-        /* Solución para el problema del modal */
-        .modal-backdrop {
-            z-index: 0 !important;
+        .spinner {
+            border: 5px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 5px solid #3498db;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
         }
-        
-        .modal {
-            z-index: 1060 !important;
+
+        .loader-text {
+            font-size: 18px;
+            color: #333;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Estilos para los modales */
+        .modal-content {
+            border: 2px solid #e91e63; /* Color rosa característico de La Comer */
+        }
+
+        .modal-icon-success {
+            color: #4CAF50;
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .modal-icon-error {
+            color: #dc3545;
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .modal-title {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .modal-btn-success {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .modal-btn-error {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 4px;
         }
     </style>
 </head>
-<body class="d-flex align-items-center justify-content-center">
-
-    <div class="main-container">
-        <!-- Contenedor del spinner -->
-        <div id="loaderContainer" class="card shadow p-4 text-center bg-white bg-opacity-85">
-            <div class="d-flex justify-content-center mb-3">
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Cargando...</span>
+<body>
+    <div class="container">
+        <!-- Contenedor del formulario -->
+        <div class="form-container" id="formContainer">
+            <h2 class="form-title">Validación de Sello</h2>
+            <form id="validationForm">
+                <div class="mb-3">
+                    <label for="guiaEmbarque" class="form-label">Guía de Embarque:</label>
+                    <input type="text" class="form-control" id="guiaEmbarque" required>
                 </div>
-            </div>
-            <p class="fs-5 mb-0">Validando sello...</p>
+                <div class="mb-3">
+                    <label for="folioTransAlm" class="form-label">Folio Trans. Alm:</label>
+                    <input type="text" class="form-control" id="folioTransAlm" required>
+                </div>
+                <div class="mb-3">
+                    <label for="folioTransTienda" class="form-label">Folio Trans. Tienda:</label>
+                    <input type="text" class="form-control" id="folioTransTienda" required>
+                </div>
+                <div class="mb-3">
+                    <label for="totalPrecioVenta" class="form-label">Total Precio Venta:</label>
+                    <input type="text" class="form-control" id="totalPrecioVenta" required>
+                </div>
+                <div class="mb-3">
+                    <label for="totalPiezas" class="form-label">Total Piezas:</label>
+                    <input type="text" class="form-control" id="totalPiezas" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Validar Sello</button>
+            </form>
         </div>
 
-        <!-- Modal de validación exitosa -->
-        <div class="modal fade" id="validationModal" tabindex="-1" aria-labelledby="validationModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-body text-center p-4">
-                        <div class="check-icon mb-3">✓</div>
-                        <h4 class="modal-title mb-3" id="validationModalLabel">El sello de la guia de embarque GE2802460785 es válido</h4>
-                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Aceptar</button>
-                    </div>
+        <!-- Contenedor del spinner -->
+        <div class="loader-container" id="loaderContainer">
+            <div class="spinner"></div>
+            <div class="loader-text">Validando sello...</div>
+        </div>
+    </div>
+
+    <!-- Modal de validación exitosa -->
+    <div class="modal fade" id="validationModal" tabindex="-1" aria-labelledby="validationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center py-4">
+                    <div class="modal-icon-success">✓</div>
+                    <h2 class="modal-title fs-4 mb-3">El sello es válido</h2>
+                    <p>Los datos han sido validados correctamente.</p>
+                    <button type="button" class="modal-btn-success" data-bs-dismiss="modal">Aceptar</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap JS Bundle con Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Modal de validación fallida -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center py-4">
+                    <div class="modal-icon-error">✗</div>
+                    <h2 class="modal-title fs-4 mb-3">El sello de la guía de embarque <span id="guiaEmbarqueErrorResult"></span> es inválido</h2>
+                    <p class="error-message">Los datos ingresados no coinciden con los registrados en el sistema.</p>
+                    <button type="button" class="modal-btn-error" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Función para mostrar el modal
-        function showModal() {
-            document.getElementById('loaderContainer').style.display = 'none';
-            var myModal = new bootstrap.Modal(document.getElementById('validationModal'));
-            myModal.show();
+        // Valores correctos para la validación
+        const datosCorrectos = {
+            guiaEmbarque: 'GE2802460785',
+            folioTransAlm: '490676',
+            folioTransTienda: '23672',
+            totalPrecioVenta: '425546.6', // Valor numérico sin formato
+            totalPiezas: '491.00'
+        };
+
+        // Referencias a los modales
+        const validationModal = new bootstrap.Modal(document.getElementById('validationModal'));
+        const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+
+        // Función para validar los datos ingresados
+        function validarDatos(datosIngresados) {
+            // Comprobamos que todos los campos coincidan con los valores correctos
+            return (
+                datosIngresados.guiaEmbarque === datosCorrectos.guiaEmbarque &&
+                datosIngresados.folioTransAlm === datosCorrectos.folioTransAlm &&
+                datosIngresados.folioTransTienda === datosCorrectos.folioTransTienda &&
+                datosIngresados.totalPrecioVenta === datosCorrectos.totalPrecioVenta &&
+                datosIngresados.totalPiezas === datosCorrectos.totalPiezas
+            );
         }
 
-        // Mostrar el modal después de 2 segundos
-        window.onload = function() {
-            setTimeout(showModal, 2000);
-        };
+        // Función para mostrar el spinner de carga
+        function mostrarSpinner() {
+            document.getElementById('formContainer').style.display = 'none';
+            document.getElementById('loaderContainer').style.display = 'flex';
+        }
+
+        // Función para ocultar el spinner de carga
+        function ocultarSpinner() {
+            document.getElementById('loaderContainer').style.display = 'none';
+        }
+
+        // Manejador del evento de envío del formulario
+        document.getElementById('validationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Mostrar spinner de carga
+            mostrarSpinner();
+            
+            // Obtener los valores ingresados por el usuario
+            const datosIngresados = {
+                guiaEmbarque: document.getElementById('guiaEmbarque').value.trim(),
+                folioTransAlm: document.getElementById('folioTransAlm').value.trim(),
+                folioTransTienda: document.getElementById('folioTransTienda').value.trim(),
+                totalPrecioVenta: document.getElementById('totalPrecioVenta').value.trim(),
+                totalPiezas: document.getElementById('totalPiezas').value.trim()
+            };
+            
+            // Simular un pequeño retraso para mostrar el spinner (en una aplicación real, sería una llamada al servidor)
+            setTimeout(() => {
+                // Ocultar el spinner
+                ocultarSpinner();
+                
+                // Validar los datos
+                if (validarDatos(datosIngresados)) {
+                    // Mostrar modal de éxito
+                    validationModal.show();
+                } else {
+                    // Mostrar modal de error
+                    document.getElementById('guiaEmbarqueErrorResult').textContent = datosIngresados.guiaEmbarque;
+                    errorModal.show();
+                }
+            }, 1500);
+        });
+
+        // Cuando se cierra el modal, volver al formulario
+        document.getElementById('validationModal').addEventListener('hidden.bs.modal', function () {
+            document.getElementById('formContainer').style.display = 'block';
+            document.getElementById('validationForm').reset();
+        });
         
-        // Asegurarse de que el botón cierre el modal correctamente
-        document.querySelector('[data-bs-dismiss="modal"]').addEventListener('click', function() {
-            var myModal = bootstrap.Modal.getInstance(document.getElementById('validationModal'));
-            if (myModal) {
-                myModal.hide();
-            }
+        // Cuando se cierra el modal de error, volver al formulario
+        document.getElementById('errorModal').addEventListener('hidden.bs.modal', function () {
+            document.getElementById('formContainer').style.display = 'block';
         });
     </script>
 </body>
