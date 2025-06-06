@@ -8,6 +8,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- QRCode.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        .text-right{
+            text-align: right;
+        }
+    </style>
 </head>
 <body class="p-3">
 <div class="row mb-1">
@@ -79,70 +84,70 @@
             <tr>
                 <td class="text-right">3</td>
                 <td>BEBIDAS IVA</td>
-                <td>80</td>
-                <td>$ 12191.37</td>
+                <td class="text-right">80</td>
+                <td class="text-right">$ 12,191.37</td>
             </tr>
             <tr>
                 <td>10</td>
                 <td>GALLETAS, PAN Y UNTABLES</td>
-                <td>4</td>
-                <td>$ 2572.8</td>
+                <td class="text-right">4</td>
+                <td class="text-right">$ 2,572.80</td>
             </tr>
 
             <tr>
                 <td>13</td>
                 <td>VINOS Y LICORES (MAS DE 20 GL)</td>
-                <td>29</td>
-                <td>$ 30290.74</td>
+                <td class="text-right">29</td>
+                <td class="text-right">$ 30,290.74</td>
             </tr>
             <tr>
                 <td>23</td>
                 <td>ABARROTES BASICOS</td>
-                <td>161</td>
-                <td>$ 64892</td>
+                <td class="text-right">161</td>
+                <td class="text-right">$ 64,892.00</td>
             </tr>
             <tr>
                 <td>35</td>
                 <td>BEBIDAS</td>
-                <td>32</td>
-                <td>$ 12475.2</td>
+                <td class="text-right">32</td>
+                <td class="text-right">$ 12,475.20</td>
             </tr>
             <tr>
                 <td>62</td>
                 <td>PERFUMERIA</td>
-                <td>92</td>
-                <td>$ 193109.13</td>
+                <td class="text-right">92</td>
+                <td class="text-right">$ 193,109.13</td>
             </tr>
 
             <tr>
                 <td>90</td>
                 <td>VINOS Y LICORES (DE 13.5 A 20 GL)</td>
-                <td>3</td>
-                <td>$ 2399.2</td>
+                <td class="text-right">3</td>
+                <td class="text-right">$ 2,399.20</td>
             </tr>
             <tr>
                 <td>95</td>
                 <td>PANALES, HIGIENICOS Y DESECHABLES</td>
-                <td>4</td>
-                <td>$ 49655.16</td>
+                <td class="text-right">4</td>
+                <td class="text-right">$ 49,655.16</td>
             </tr>
             <tr>
                 <td>116</td>
                 <td>ASEO PERSONAL</td>
-                <td>21</td>
-                <td>$ 19096.54</td>
+                <td class="text-right">21</td>
+                <td class="text-right">$ 19,096.54</td>
             </tr>
             <tr>
                 <td>118</td>
                 <td>BEBIDAS TASA 0</td>
-                <td>5</td>
-                <td>$ 1140</td>
+                <td class="text-right">5</td>
+                <td class="text-right">$ 1,140.00</td>
             </tr>
             <tr>
                 <td>143</td>
                 <td>CONSERVAS</td>
-                <td>45</td>
-                <td>$ 21613.6</td>
+                <td class="text-right">45</td>
+                <td class="text-right">$ 21,613.60</td>
             </tr>
             <!--<tr>
                 <td>410</td>
@@ -175,14 +180,14 @@
             <tr>
                 <td>410</td>
                 <td>GALLETAS, PAN Y UNTABLES IEPS</td>
-                <td>1</td>
-                <td>$ 543.33</td>
+                <td class="text-right">1</td>
+                <td class="text-right">$ 543.33</td>
             </tr>
             <tr>
                 <td>420</td>
                 <td>DULCERIA IEPS</td>
-                <td>14</td>
-                <td>$ 15567.6</td>
+                <td class="text-right">14</td>
+                <td class="text-right">$ 15,567.60</td>
             </tr>
             </tbody>
         </table>
@@ -239,13 +244,13 @@
         <div class=" text-center">
             <div id="qr1"></div>
         </div>
-        <label style="font-size: 9px;">VER DETALLE DE ACUSE</label>
+        <label style="font-size: 9px;">Ver detalle de acuse</label>
     </div>
     <div class="col-md-2">
         <div class=" text-center">
             <div id="qr2"></div>
         </div>
-        <label style="font-size: 9px;">VER DETALLE DE ACUSE</label>
+        <label style="font-size: 9px;">Validar Sello</label>
     </div>
     <div class="col-md-8 text-left" style="font-size: 8px">
         <div>
@@ -270,6 +275,9 @@
         width: 150,
         height: 150
     });
+
+
+
 </script>
 </body>
 </html>
